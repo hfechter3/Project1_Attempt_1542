@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var guessLabel: UILabel!
     @IBOutlet weak var guessTextField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var JakeMessage1: UILabel!
+    @IBOutlet weak var JakeMessage2: UILabel!
     
     // Override load request for our app
     override func viewDidLoad() {
