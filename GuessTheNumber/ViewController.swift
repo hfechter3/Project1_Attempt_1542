@@ -6,12 +6,16 @@
 //  Copyright © 2020 Peter Fechter. All rights reserved.
 //
 import UIKit
+import FirebaseDatabase
+
 class ViewController: UIViewController {
+    var ref: DatabaseReference!
 // Initialize Game Variables
     let lowerBound = 1
     let upperBound = 100
     var numberToGuess: Int!
     var numberOfGuesses = 0
+    var key: String?
     
     @IBOutlet weak var guessLabel: UILabel!
     @IBOutlet weak var guessTextField: UITextField!
@@ -22,11 +26,23 @@ class ViewController: UIViewController {
     // Override load request for our app
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference().child("users")
         generateRandomNumber()
     }
     
     func generateRandomNumber(){
         numberToGuess = Int(arc4random_uniform(100) + 1)
+    }
+    
+    func addUser() {
+        let user = ["id": key!,
+                    "correctNumber": guessTextField.text!,
+                    "guesses": String(numberOfGuesses)]
+        ref.child(key!).setValue(user)
+    }
+    
+    func getKey(){
+        key = ref.childByAutoId().key
     }
     
     @IBAction func submitButtonPressed(_ sender: Any) {
